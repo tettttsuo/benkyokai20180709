@@ -2,7 +2,7 @@
 function helloAsync1() {
   async function func() {
     console.log(1);
-    return undefined;
+    return 'fulfilled!';
   }
   console.log(0);
   const promise = func();
@@ -16,11 +16,12 @@ function helloAsync1() {
 }
 
 // hello async
+// async = return new Promise && resolve
 function helloAsync2() {
   function func() {
     return new Promise((resolve) => {
       console.log(1);
-      resolve(undefined);
+      resolve('fulfilled!');
     });
   }
   console.log(0);
@@ -56,6 +57,7 @@ function aysncReturnsPromise1() {
   }, 1000);
 }
 
+
 // promiseを返すasync
 function aysncReturnsPromise2() {
   let anotherPromise;
@@ -63,7 +65,7 @@ function aysncReturnsPromise2() {
     anotherPromise = new Promise((resolve) => {
       console.log(1);
       resolve('fulfilled1!');
-    });
+    }).then(() => {});
     return anotherPromise;
   }
   console.log(0);

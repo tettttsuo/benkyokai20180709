@@ -9,8 +9,20 @@ function helloPromise() {
     console.log(0);
   });
 
-  console.log(1);
+  let promise1 = new Promise((resolve, reject) => {
+    console.log(1);
+    resolve('fulfilled!');
+  });
+
+  let promise2 = new Promise((resolve, reject) => {
+    console.log(2);
+    reject('rejected!');
+  });
+  console.log(3);
+
   console.log('promise', promise);
+  console.log('promise1', promise1);
+  console.log('promise2', promise2);
 }
 
 // resolveを呼ぶ
@@ -29,7 +41,7 @@ function resolvePromise() {
   console.log(1);
   console.log('promise', promise);
   console.log('promise1', promise1);
-  console.log(1);
+  console.log('同期実行終了');
 
   setTimeout(() => {
     console.log('1 sec passed...');
@@ -54,7 +66,7 @@ function rejectedPromise() {
   console.log(1);
   console.log('promise', promise);
   console.log('promise1', promise1);
-  console.log(1);
+  console.log('同期実行終了');
 
   setTimeout(() => {
     console.log('1 sec passed...');
@@ -79,7 +91,7 @@ function rejectedDuringChain1() {
   let promise2 = promise1.then((message) => {
     console.log(3);
     console.log(message);
-    return 'fulfilled2!';
+    return 'fulfilled3!';
   });
 
   let promise3 = promise2.then((message) => {
@@ -91,23 +103,23 @@ function rejectedDuringChain1() {
   let promise4 = promise3.catch((err) => {
     console.log(5);
     console.log(err.message);
-    return 'fulfilled3!';
+    return 'fulfilled4!';
   });
 
   let promise5 = promise4.then((message) => {
     console.log(6);
     console.log(message);
-    return 'fulfilled4!';
+    return 'fulfilled5!';
   });
 
   console.log(1);
-  console.log('promise', promise)
+  console.log('promise', promise);
   console.log('promise1', promise1);
   console.log('promise2', promise2);
   console.log('promise3', promise3);
   console.log('promise4', promise4);
   console.log('promise5', promise5);
-  console.log(1);
+  console.log('同期的実行終了');
 
   setTimeout(() => {
     console.log('1 sec passed...');
@@ -144,7 +156,7 @@ function rejectedDuringChain2() {
   console.log('promise', promise)
   console.log('promise1', promise1);
   console.log('promise2', promise2);
-  console.log(1);
+  console.log('同期的実行終了');
 
   setTimeout(() => {
     console.log('1 sec passed...');
@@ -176,7 +188,7 @@ function pendingForever() {
   console.log('promise', promise)
   console.log('promise1', promise1);
   console.log('promise2', promise2);
-  console.log(1);
+  console.log('同期的実行終了');
 
   setTimeout(() => {
     console.log('1 sec passed...');
@@ -212,21 +224,14 @@ function resolveAysnc() {
   console.log('promise', promise)
   console.log('promise1', promise1);
   console.log('promise2', promise2);
-  console.log(1);
+  console.log('同期的実行終了');
 
   setTimeout(() => {
-    console.log('1 sec passed...');
+    console.log('2 sec passed...');
     console.log('promise', promise)
     console.log('promise1', promise1);
     console.log('promise2', promise2);
   }, 2000);
-}
-
-// catchされないとrejectedなpromiseは例外を発生する
-function nonHandledReject() {
-  let promise = new Promise((resolve, reject) => {
-    reject('エラー');
-  });
 }
 
 // thenの枝分かれ
@@ -252,7 +257,7 @@ function forkThen() {
   console.log('promise', promise)
   console.log('promise1', promise1);
   console.log('promise2', promise2);
-  console.log(1);
+  console.log('同期的実行終了');
 
   setTimeout(() => {
     console.log('1 sec passed...');
@@ -264,21 +269,22 @@ function forkThen() {
 
 // thenの引数関数がいつまでもpendingなpromiseを返す
 function returnPendingPromiseFromThenArg() {
-  let promise = new Promise((resolve, reject) => {
+  let anotherPromise;
+  const promise = new Promise((resolve, reject) => {
     console.log(0);
     resolve('fulfilled!');
   });
 
-  let promise1 = promise.then((message) => {
+  const promise1 = promise.then((message) => {
     console.log(2);
     console.log(message);
-    new Promise(() => {
+    anotherPromise = new Promise(() => {
       console.log(3);
     });
-    return 
+    return anotherPromise;
   });
 
-  let promise2 = promise1.then((message) => {
+  const promise2 = promise1.then((message) => {
     console.log(4);
     console.log(message);
     return 'fulfilled3!';
@@ -288,25 +294,26 @@ function returnPendingPromiseFromThenArg() {
   console.log('promise', promise)
   console.log('promise1', promise1);
   console.log('promise2', promise2);
-  console.log(1);
+  console.log('同期的実行終了');
 
   setTimeout(() => {
     console.log('1 sec passed...');
     console.log('promise', promise)
     console.log('promise1', promise1);
     console.log('promise2', promise2);
+    console.log('promise1 === anotherPromise', promise1 === anotherPromise);
   }, 1000);
 }
 
 // thenの引数関数がfulfilledなpromiseを返す
 function returnFulfilledPromiseFromThenArg() {
   let anotherPromise;
-  let promise = new Promise((resolve, reject) => {
+  const promise = new Promise((resolve, reject) => {
     console.log(0);
     resolve('fulfilled!');
   });
 
-  let promise1 = promise.then((message) => {
+  const promise1 = promise.then((message) => {
     console.log(2);
     console.log(message);
     anotherPromise = new Promise((resolve) => {
@@ -316,7 +323,7 @@ function returnFulfilledPromiseFromThenArg() {
     return anotherPromise;
   });
 
-  let promise2 = promise1.then((message) => {
+  const promise2 = promise1.then((message) => {
     console.log(4);
     console.log(message);
     return 'fulfilled3!';
@@ -327,7 +334,7 @@ function returnFulfilledPromiseFromThenArg() {
   console.log('promise1', promise1);
   console.log('promise2', promise2);
   console.log('anotherPromise', anotherPromise);
-  console.log(1);
+  console.log('同期的実行終了');
 
   setTimeout(() => {
     console.log('1 sec passed...');
