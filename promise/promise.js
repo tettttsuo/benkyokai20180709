@@ -32,7 +32,7 @@ function resolvePromise() {
   console.log(1);
 
   setTimeout(() => {
-    console.log('1 sec passed...');
+    console.log('1 sec passed...');
     console.log('promise', promise);
     console.log('promise1', promise1);
   }, 1000);
@@ -57,7 +57,7 @@ function rejectedPromise() {
   console.log(1);
 
   setTimeout(() => {
-    console.log('1 sec passed...');
+    console.log('1 sec passed...');
     console.log('promise', promise);
     console.log('promise1', promise1);
   }, 1000);
@@ -110,7 +110,7 @@ function rejectedDuringChain1() {
   console.log(1);
 
   setTimeout(() => {
-    console.log('1 sec passed...');
+    console.log('1 sec passed...');
     console.log('promise', promise)
     console.log('promise1', promise1);
     console.log('promise2', promise2);
@@ -147,7 +147,7 @@ function rejectedDuringChain2() {
   console.log(1);
 
   setTimeout(() => {
-    console.log('1 sec passed...');
+    console.log('1 sec passed...');
     console.log('promise', promise)
     console.log('promise1', promise1);
     console.log('promise2', promise2);
@@ -179,7 +179,7 @@ function pendingForever() {
   console.log(1);
 
   setTimeout(() => {
-    console.log('1 sec passed...');
+    console.log('1 sec passed...');
     console.log('promise', promise)
     console.log('promise1', promise1);
     console.log('promise2', promise2);
@@ -191,7 +191,7 @@ function resolveAysnc() {
   let promise = new Promise((resolve, reject) => {
     console.log(0);
     setTimeout(() => {
-      console.log('1 sec passed...');
+      console.log('1 sec passed...');
       resolve('fulfilled!');
     }, 1000);
   });
@@ -215,7 +215,7 @@ function resolveAysnc() {
   console.log(1);
 
   setTimeout(() => {
-    console.log('2 sec passed...');
+    console.log('1 sec passed...');
     console.log('promise', promise)
     console.log('promise1', promise1);
     console.log('promise2', promise2);
@@ -255,7 +255,7 @@ function forkThen() {
   console.log(1);
 
   setTimeout(() => {
-    console.log('1 sec passed...');
+    console.log('1 sec passed...');
     console.log('promise', promise)
     console.log('promise1', promise1);
     console.log('promise2', promise2);
@@ -291,7 +291,7 @@ function returnPendingPromiseFromThenArg() {
   console.log(1);
 
   setTimeout(() => {
-    console.log('1 sec passed...');
+    console.log('1 sec passed...');
     console.log('promise', promise)
     console.log('promise1', promise1);
     console.log('promise2', promise2);
@@ -330,7 +330,7 @@ function returnFulfilledPromiseFromThenArg() {
   console.log(1);
 
   setTimeout(() => {
-    console.log('1 sec passed...');
+    console.log('1 sec passed...');
     console.log('promise', promise)
     console.log('promise1', promise1);
     console.log('promise2', promise2);
