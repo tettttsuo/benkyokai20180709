@@ -1,3 +1,12 @@
+//logger
+function logOnPromiseThen() {
+  const original = Promise.prototype.then;
+  Promise.prototype.then = function(){
+    console.log('called!');
+    original.apply(this, arguments);
+  }
+}
+
 // hello async
 function helloAsync1() {
   async function func() {
@@ -43,6 +52,7 @@ function aysncReturnsPromise1() {
       console.log(1);
       resolve('fulfilled1!');
     });
+
     return anotherPromise;
   }
   console.log(0);
@@ -65,7 +75,8 @@ function aysncReturnsPromise2() {
     anotherPromise = new Promise((resolve) => {
       console.log(1);
       resolve('fulfilled1!');
-    }).then(() => {});
+    })
+    .then((res) => {return res});
     return anotherPromise;
   }
   console.log(0);
@@ -175,6 +186,7 @@ function returnPromiseFromAwait2() {
       resolve(10);
     }).then((ten) => {
       console.log(ten);
+      return undefined;
     });
     return anotherPromise;
   }
