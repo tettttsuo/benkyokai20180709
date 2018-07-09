@@ -1,4 +1,5 @@
 // 実際にあった形
+// 2まではいかない
 function realExample() {
   async function asyncFunc() {
     const promise = new Promise(() => {
