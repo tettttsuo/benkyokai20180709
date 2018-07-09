@@ -1,4 +1,3 @@
-
 function helloAwait3() {
   async function func() {
     console.log(0);
@@ -24,4 +23,9 @@ function helloAwait3() {
   console.log(1);
 }
 
-
+function rejectedPromiseFromThenArg() {
+  Promise.resolve().then(()=>{
+    return Promise.reject(3);
+  })
+  .catch(err => console.log(err)) 
+}
