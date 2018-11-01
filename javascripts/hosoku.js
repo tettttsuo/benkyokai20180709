@@ -29,3 +29,19 @@ function rejectedPromiseFromThenArg() {
   })
   .catch(err => console.log(err)) 
 }
+
+let anotherPromise;
+let promise;
+function rejectedPromiseFromThenArg2() {
+  promise = Promise.resolve().then(() => {
+    anotherPromise = new Promise((r) => {
+      setTimeout(() => {
+        console.log('10 sec')
+        r('fulfilled');
+      }, 10000);
+    });
+    return anotherPromise;
+  })
+}
+
+
